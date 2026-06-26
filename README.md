@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎥 Video Uploading Full Stack Project
 
-## Getting Started
+This is a **Full Stack Video Uploading Application** built with **Next.js** and modern web technologies. The project allows users to securely authenticate, upload videos, and manage their content through a clean and responsive interface.
 
-First, run the development server:
+## 🚀 Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### **Next.js**
+Used as the main React framework for building both the frontend and backend. It provides server-side rendering, API routes, and excellent performance.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **ImageKit**
+Used for storing, optimizing, and delivering videos and media files efficiently through a CDN. It also helps improve loading speed and media management.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### **MongoDB & Mongoose**
+- **MongoDB** is used as the primary database for storing user and video information.
+- **Mongoose** is used as an Object Data Modeling (ODM) library to define schemas and interact with the MongoDB database easily.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### **NextAuth.js (Auth.js)**
+Used to implement secure user authentication and authorization. It manages user login sessions, protects private routes, and allows only authenticated users to upload or manage videos.
 
-## Learn More
+### **bcryptjs**
+Used to hash user passwords before storing them in the database, ensuring passwords remain secure and cannot be read in plain text.
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 🔐 Secure user authentication and authorization
+- 👤 User registration and login
+- 🎥 Video uploading with ImageKit
+- 📂 Store video metadata in MongoDB
+- 🛡️ Password encryption using bcryptjs
+- ⚡ Fast performance with Next.js
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📌 Purpose
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The main goal of this project is to demonstrate how to build a secure and scalable full-stack video uploading platform using modern web development technologies. It combines authentication, database management, media storage, and a responsive frontend into a single application.
