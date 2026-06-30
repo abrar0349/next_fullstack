@@ -15,7 +15,7 @@ const userSchema = new Schema<IUser>(
         password: {type: String, required: true}
     },
     {
-        timestamps: true // createAt and updateAt 2 property automatically add kry ga
+        timestamps: true // createdAt and updatedAt 2 property automatically add kry ga
     }
 )
 
