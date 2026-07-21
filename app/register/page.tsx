@@ -1,4 +1,4 @@
-import { error } from 'console'
+// import { error } from 'console'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
@@ -55,8 +55,26 @@ function RegisterPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)} 
           />
+          <input 
+            type="password"
+            placeholder='Password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} 
+          />
+             <input 
+            type="password"
+            placeholder='Confirm Password'
+            value={confirmPassword}
+            onChange={(e) => setPassword(e.target.value)} 
+          />
+
+          <button type = "submit">Registered</button>
 
         </form>
+
+        <div>
+          <p>Already have an Account <a href="/login">Login</a></p>
+        </div>
     </div>
   )
 }
