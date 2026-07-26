@@ -31,13 +31,15 @@ export async function POST(request:NextRequest){
         })
 
         return NextResponse.json(
-                {error : "User registered successfully"},
-                {status:400},
+                {message : "User registered successfully"},
+                {status: 201},
             )
     }catch(error){
+
         console.log("Registeration error",error)
+
         return NextResponse.json(
-                {error : "Failed To registered user"},
+                {error : error instanceof Error ? error.message : "Unknown Error"},
                 {status:400},
             )
     }

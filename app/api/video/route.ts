@@ -10,13 +10,15 @@ export async function GET(){
 
     try{
         await connectToDataBase()
+
         const videos = await video.find({}).sort({createdAt : -1}).lean()
 
         if(!videos ||  videos.length === 0){
-            NextResponse.json([],{status:200})
+          return   NextResponse.json([],{status:200})
         }
 
-        NextResponse.json(videos)
+        return NextResponse.json(videos)
+
     }catch(error){
 
         NextResponse.json(
@@ -33,19 +35,23 @@ export async function POST(request: NextRequest){
 
     try{
 
+    console.log("1. POST called");
+
         const session = await getServerSession(authOptions)
+console.log("2. Session:", session);
 
         if(!session){
-            NextResponse.json(
+             console.log("3. No Session");
+           return NextResponse.json(
                 {error: "Failed to fetch Videos"},
                 {status : 401}
             );
         }
-
+ console.log("4. Before DB");
         await connectToDataBase()
-
-        const body: IVideo = request.json()
-
+ console.log("5. After DB");
+        const body: IVideo = await request.json()
+        console.log("Request Body:", body);
         if(!body.title || !body.description || !body.videoUrl || !body.thumbnailUrl){
                 return NextResponse.json(
                     {error: "Missing Field is required"},

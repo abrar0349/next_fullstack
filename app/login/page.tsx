@@ -24,6 +24,7 @@ function page() {
       if(result?.error){
         console.log(result.error)
       }else{
+        alert("User Register Successfully")
         router.push("/")
       }
 

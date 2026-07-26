@@ -1,5 +1,6 @@
 "use client" // This component must be a client component
 
+import { apiClient } from "@/lib/api-client";
 import {
     ImageKitAbortError,
     ImageKitInvalidRequestError,
@@ -15,7 +16,9 @@ interface fileUpload{
     fileType?: "image" | "video"
 }
 
-const FileUpload = ({onSuccess, onProgress, fileType}:fileUpload) => {
+const FileUpload = ({onSuccess = () => {
+    alert("image uploaded successfully")
+}, onProgress, fileType}:fileUpload) => {
     
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null)
@@ -37,6 +40,7 @@ const FileUpload = ({onSuccess, onProgress, fileType}:fileUpload) => {
 
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
         const file = e.target.files?.[0];
 
         if(!file || !validateFile(file)) return;
@@ -47,7 +51,9 @@ const FileUpload = ({onSuccess, onProgress, fileType}:fileUpload) => {
         try{
 
            const authRes = await fetch("/api/auth/imagekit_auth");
+           console.log(authRes,'authRes')
            const auth = await authRes.json();
+           console.log("Auth Data:", auth);
 
            const res = await upload(
                 {
@@ -55,9 +61,12 @@ const FileUpload = ({onSuccess, onProgress, fileType}:fileUpload) => {
                     file,
                     fileName: file.name, 
                     publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
-                    signature: auth.signature,
-                    expire: auth.expire,
-                    token: auth.token,
+                    // signature: auth.signature,
+                    // expire: auth.expire,
+                    // token: auth.token,
+                     token: auth.authenticationParameters.token,
+                        signature: auth.authenticationParameters.signature,
+                        expire: auth.authenticationParameters.expire,
                     onProgress: (event) => {
                         if(event.lengthComputable && onProgress){
                             const percentage = (event.loaded / event.total) * 100
@@ -67,6 +76,17 @@ const FileUpload = ({onSuccess, onProgress, fileType}:fileUpload) => {
            })
 
            onSuccess(res);
+           console.log("ImageKit Response:", res);
+           const payload = {
+                title: "Test Video",
+                description: "Testing upload",
+                videoUrl: res.url!,
+                thumbnailUrl: "temp-thumbnail",
+            };
+
+            console.log("Payload:", payload);
+
+           await apiClient.createVideo(payload)
 
         }catch (error) {
             console.error("Upload failed:", error);

@@ -1,4 +1,6 @@
 // import { error } from 'console'
+"use client"
+
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
@@ -32,21 +34,28 @@ function RegisterPage() {
 
         const data = await res.json()
 
-        if(!data.ok){
+        if(!res.ok){
           throw new Error(data.error || "Registeration Failed")
         }
         console.log(data)
-
+        alert(data.message)
         router.push("/login")
 
       }catch(error){
 
-        console.error(error)
+          if (error instanceof Error) {
+                console.error(error.message);
+                alert(error.message);
+            } else {
+                console.error("Unknown Error");
+                } 
       }
   }
+
   return (
     <div>
         <h1>Register</h1>
+
         <form onSubmit={handleSubmit}>
 
           <input 
@@ -65,10 +74,13 @@ function RegisterPage() {
             type="password"
             placeholder='Confirm Password'
             value={confirmPassword}
-            onChange={(e) => setPassword(e.target.value)} 
+            onChange={(e) => setConfirmPassword(e.target.value)} 
           />
 
-          <button type = "submit">Registered</button>
+          <button 
+            type = "submit"
+            className='cursor-pointer border-amber-200'
+            >Registered</button>
 
         </form>
 
