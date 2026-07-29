@@ -18,24 +18,26 @@ export const authOptions: NextAuthOptions = {
             password: { label: "Password", type: "password" }
         },
         async authorize(credentials) {
+  console.log("1. authorize start");
 
             if(!credentials?.email || !credentials.password){
                 throw new Error("Missing Email or Password")
             }
             try{
                 await connectToDataBase()
+console.log("2. database connected");
 
                 const user = await User.findOne({email: credentials.email})
 
                 if(!user){
                     throw new Error("User didn't found")
                 }
-
+  console.log("3. user =>", user);
                 const isValid = await bcrypt.compare(
                     credentials.password,
                     user.password
                 )
-
+  console.log("4. user =>", isValid);
                 if(!isValid){
                     throw new Error("Invalid userName or password")
                 }

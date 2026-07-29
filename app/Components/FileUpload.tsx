@@ -98,17 +98,56 @@ const FileUpload = ({onSuccess = () => {
 
     }
     return (
-        <>
-           
-            <input 
-                type="file" 
-                accept = {fileType === "video" ? "video/*" : "image/*"}
-                onChange = {handleFileChange}
-            />
-            
-            {uploading && <span>Uploading...</span>}
-        
-        </>
+     <>
+  <div className="mx-auto w-full max-w-sm sm:max-w-md rounded-xl border border-gray-200 bg-white p-6 shadow-lg mt-3">
+    <label className="mb-3 block text-lg font-semibold text-gray-800">
+      {fileType === "video" ? "Upload Video" : "Upload Image"}
+    </label>
+
+    <input
+      type="file"
+      accept={fileType === "video" ? "video/*" : "image/*"}
+      onChange={handleFileChange}
+      className="
+        block w-full cursor-pointer rounded-lg border border-gray-300
+        bg-gray-50 text-sm text-gray-700
+        file:mr-4 file:cursor-pointer file:rounded-md
+        file:border-0 file:bg-emerald-600
+        file:px-4 file:py-2
+        file:font-medium file:text-white
+        hover:file:bg-emerald-700
+        focus:outline-none
+      "
+    />
+
+    {uploading && (
+      <div className="mt-4 flex items-center gap-2 text-emerald-600">
+        <svg
+          className="h-5 w-5 animate-spin"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          ></circle>
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+          ></path>
+        </svg>
+
+        <span className="font-medium">Uploading...</span>
+      </div>
+    )}
+  </div>
+</>
     );
 };
 
