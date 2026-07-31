@@ -15,14 +15,14 @@ function page() {
   const  handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      console.log(email,password)
+      // console.log(email,password)
       const result = await signIn("credentials",{
         email,
         password,
         redirect:false,
       })
 
-      console.log(result)
+      // console.log(result)
       if(result?.error){
         console.log(result.error)
       }else{

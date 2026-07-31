@@ -21,7 +21,7 @@ class ApiClient {
             ...headers,
         }
         
-        console.log("Request Body:", body);
+        // console.log("Request Body:", body);
 
        const response =  await fetch(`/api${endpoint}`, {
             method,
@@ -35,8 +35,8 @@ class ApiClient {
         return response.json()
     }
 
-    async getVideos(){
-       return  this.fetch("/video")
+    async getVideos(){  
+        return this.fetch<IVideo[]>("/video");
     }
 
     async createVideo(videoData : videoFormData){

@@ -13,18 +13,22 @@ if(!cached){
 }
 
 export async function connectToDataBase(){
+    // console.log("URL:", MONGODB_URL);
     if(cached.conn){
         return cached.conn
     }
 
     if(!cached.promise){
         const opts = {
-            bufferCommands: true,
+            bufferCommands: false,
             maxPoolSize: 10,
         }
-        mongoose
+        // console.log("Connecting...");
+
+       cached.promise = mongoose
         .connect(MONGODB_URL,opts)
         .then(() => mongoose.connection)
+            // console.log("Connected Successfully");
     }
 
     try{

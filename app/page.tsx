@@ -6,13 +6,14 @@ import { apiClient } from "@/lib/api-client";
 // import { Video } from '@imagekit/next';
 import { useEffect, useState } from "react";
 
+
 export default function Home() {
   const [videos, setVideos] = useState<any[]>([]);
 
     useEffect(() => {
         async function loadVideos() {
           const data = await apiClient.getVideos();
-          console.log(data,"check video data")
+          // console.log(data,"check video data")
           setVideos(data);
         }
 
@@ -21,9 +22,13 @@ export default function Home() {
 
   return (
     <>
+
+
      <FileUpload 
         // fileType="video"
-        // onSuccess={handleUploadSuccess}
+        onSuccess={  () => {
+            alert("image uploaded successfully")
+          }}
       />
   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {videos?.map((video: any, ind: number) => (

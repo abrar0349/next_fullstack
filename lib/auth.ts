@@ -6,10 +6,7 @@ import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
       providers: [
-    // GithubProvider({
-    //   clientId: process.env.GITHUB_ID!,
-    //   clientSecret: process.env.GITHUB_SECRET!,
-    // }),
+ 
 
     CredentialsProvider({
         name : 'Credentials',
@@ -18,26 +15,26 @@ export const authOptions: NextAuthOptions = {
             password: { label: "Password", type: "password" }
         },
         async authorize(credentials) {
-  console.log("1. authorize start");
+//   console.log("1. authorize start");
 
             if(!credentials?.email || !credentials.password){
                 throw new Error("Missing Email or Password")
             }
             try{
                 await connectToDataBase()
-console.log("2. database connected");
+// console.log("2. database connected");
 
                 const user = await User.findOne({email: credentials.email})
 
                 if(!user){
                     throw new Error("User didn't found")
                 }
-  console.log("3. user =>", user);
+//   console.log("3. user =>", user);
                 const isValid = await bcrypt.compare(
                     credentials.password,
                     user.password
                 )
-  console.log("4. user =>", isValid);
+//   console.log("4. user =>", isValid);
                 if(!isValid){
                     throw new Error("Invalid userName or password")
                 }
@@ -47,7 +44,7 @@ console.log("2. database connected");
                     email: user.email,
                 }
             }catch(error){
-                console.error('Auth Error',error)
+                // console.error('Auth Error',error)
                 throw error
             }
         },
